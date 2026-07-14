@@ -5,6 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
     <title>Undertale LBXNMD</title>
+    <link rel="stylesheet" type="text/css" href="../screen-adjust.css" alt="/style.css">
     <style>
       @-webkit-keyframes rotation {
         from {
@@ -46,6 +47,12 @@
         }
       }
 
+      .container::-webkit-scrollbar {
+        display: none;
+        scrollbar-color: #000000;
+        scrollbar-width: 0;
+      }
+
       html {
         background: #060612;
       }
@@ -85,8 +92,8 @@
 
       /* the canvas *must not* have any border or padding, or mouse coords will be wrong */
       canvas.emscripten {
-        display: none;
-        border: 0px none;
+        display: inline-block;
+        border: 20px;
         background-color: black;
         position: relative;
         transition: opacity 5s ease-in;
