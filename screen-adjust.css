@@ -1,0 +1,5 @@
+.container::-webkit-scrollbar {
+  display: none;
+  scrollbar-color: #000000;
+  scrollbar-width: 0;
+}
