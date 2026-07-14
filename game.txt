@@ -584,7 +584,7 @@ gml_Script_anon_live_preinit_init_funcs_gml_GlobalScript_GMLiveAPI_201_live_prei
  window_set_colour=(colour)
 Â£ window_get_colour=()
  window_set_color=(color)$
- window_set_position=(0,0)
+ window_set_position=(x,y)
  window_set_size=(w,h)
  window_set_rectangle=(x,y,w,h)
  window_center=()
