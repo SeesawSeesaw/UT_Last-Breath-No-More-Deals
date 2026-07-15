@@ -91,6 +91,14 @@
       }
 
       /* the canvas *must not* have any border or padding, or mouse coords will be wrong */
+      .game-viewport {
+        display: inline-block;
+        position: relative;
+        overflow: visible;
+        line-height: 0;
+      }
+
+
       canvas.emscripten {
         display: inline-block;
         border: 20px;
@@ -438,13 +446,15 @@
   </head>
 
   <body>
-    <canvas
-      class="emscripten"
-      id="canvas"
-      oncontextmenu="event.preventDefault()"
-      tabindex="-1"
-    >
-    </canvas>
+    <div class="game-viewport" id="game-viewport">
+      <canvas
+        class="emscripten"
+        id="canvas"
+        oncontextmenu="event.preventDefault()"
+        tabindex="-1"
+      >
+      </canvas>
+    </div>
     <div id="pauseMenuContainer" hidden>
       <div id="pauseMenuBorder">
         <div id="pauseMenu">
@@ -999,28 +1009,12 @@
         canvasElement.classList.add("active");
 
         const gameScale = 1.12;
-        const maxWidth = window.innerWidth * 1.5;
-        const maxHeight = window.innerHeight;
-        var newHeight, newWidth;
+        const viewportElement = document.getElementById("game-viewport");
 
-        // Find the limiting dimension.
-        var heightQuotient = startingHeight / maxHeight;
-        var widthQuotient = startingWidth / maxWidth;
-
-        if (heightQuotient > widthQuotient) {
-          // Max out on height.
-          newHeight = maxHeight;
-          newWidth = newHeight * startingAspect;
-        } else {
-          // Max out on width.
-          newWidth = maxWidth;
-          newHeight = newWidth / startingAspect;
+        if (viewportElement) {
+          viewportElement.style.transform = `scale(${gameScale})`;
+          viewportElement.style.transformOrigin = "center center";
         }
-
-        canvasElement.style.height = newHeight + "px";
-        canvasElement.style.width = newWidth + "px";
-        canvasElement.style.transform = `scale(${gameScale})`;
-        canvasElement.style.transformOrigin = "center center";
       }
 
       function pause() { // Don't change the name - GX Mobile calls it when the app becomes inactive.
