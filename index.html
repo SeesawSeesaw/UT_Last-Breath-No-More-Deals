@@ -443,7 +443,7 @@
       id="canvas"
       oncontextmenu="event.preventDefault()"
       tabindex="-1"
-      style="position: absolute; width: 100%; height: 100%; top: 0; left: 0;"
+      style="position: absolute; width: 100%; height: 100%; "
     >
     </canvas>
     <div id="pauseMenuContainer" hidden>
@@ -999,7 +999,7 @@
 
         canvasElement.classList.add("active");
 
-        const maxWidth = window.innerWidth * 2;
+        const maxWidth = window.innerWidth;
         const maxHeight = window.innerHeight;
         var newHeight, newWidth;
 
@@ -1019,6 +1019,8 @@
 
         canvasElement.style.height = newHeight + "px";
         canvasElement.style.width = newWidth + "px";
+        canvasElement.style.height = 920 + "px";
+        canvasElement.style.width = 1633.33 + "px";
       }
 
       function pause() { // Don't change the name - GX Mobile calls it when the app becomes inactive.
