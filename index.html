@@ -91,14 +91,6 @@
       }
 
       /* the canvas *must not* have any border or padding, or mouse coords will be wrong */
-      .game-viewport {
-        display: inline-block;
-        position: relative;
-        overflow: visible;
-        line-height: 0;
-      }
-
-
       canvas.emscripten {
         display: inline-block;
         border: 20px;
@@ -446,15 +438,14 @@
   </head>
 
   <body>
-    <div class="game-viewport" id="game-viewport">
-      <canvas
-        class="emscripten"
-        id="canvas"
-        oncontextmenu="event.preventDefault()"
-        tabindex="-1"
-      >
-      </canvas>
-    </div>
+    <canvas
+      class="emscripten"
+      id="canvas"
+      oncontextmenu="event.preventDefault()"
+      tabindex="-1"
+      style="position: absolute; width: 100%; height: 100%; top: 0; left: 0;"
+    >
+    </canvas>
     <div id="pauseMenuContainer" hidden>
       <div id="pauseMenuBorder">
         <div id="pauseMenu">
@@ -1008,13 +999,26 @@
 
         canvasElement.classList.add("active");
 
-        const gameScale = 1.12;
-        const viewportElement = document.getElementById("game-viewport");
+        const maxWidth = window.innerWidth * 2;
+        const maxHeight = window.innerHeight;
+        var newHeight, newWidth;
 
-        if (viewportElement) {
-          viewportElement.style.transform = `scale(${gameScale})`;
-          viewportElement.style.transformOrigin = "center center";
+        // Find the limiting dimension.
+        var heightQuotient = startingHeight / maxHeight;
+        var widthQuotient = startingWidth / maxWidth;
+
+        if (heightQuotient > widthQuotient) {
+          // Max out on height.
+          newHeight = maxHeight;
+          newWidth = newHeight * startingAspect;
+        } else {
+          // Max out on width.
+          newWidth = maxWidth;
+          newHeight = newWidth / startingAspect;
         }
+
+        canvasElement.style.height = newHeight + "px";
+        canvasElement.style.width = newWidth + "px";
       }
 
       function pause() { // Don't change the name - GX Mobile calls it when the app becomes inactive.
